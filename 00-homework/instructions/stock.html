@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Stock Symbol Prices</title>
+  <style type="text/css">
+    button,
+    div,
+    form,
+    input {
+      margin: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Stock Search</h1>
+
+    <!-- stocks will get dumped here -->
+    <div id="stocks-view"></div>
+
+    <form id="stock-form">
+      <label for="stock-input">Add a Stock Symbol</label>
+      <input type="text" id="stock-input">
+      <br>
+
+      <!-- Button triggers new stock to be added -->
+      <input id="add-stock" type="submit" value="Add a Stock Symbol">
+    </form>
+
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+    <script src="app.js"></script>
+  </div>
+</body>
+
+</html>
