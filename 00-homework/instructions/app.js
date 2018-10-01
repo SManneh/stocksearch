@@ -1,5 +1,5 @@
 // Initial array of stocks
-const stocks = ['FB', "AAPL", 'TSLA', 'GOOG', 'AMZN'];
+const stockList = ['FB', "AAPL", 'TSLA', 'GOOG', 'AMZN'];
 
 // Function for displaying stock data
 const render = function () {
@@ -8,8 +8,8 @@ const render = function () {
   // (this is necessary otherwise you will have repeat buttons)
   $("#stocks-view").empty()
   // Loop through the array of stocks, then generate buttons for each stock in the array
-  for(let i = 0; i < stocks.length; i++){
-    $("#stocks-view").append(`<button class="get-stock" value=${stocks[i]}>${stocks[i]}</button>`)
+  for(let i = 0; i < stockList.length; i++){
+    $("#stocks-view").append(`<button class="get-stock" value=${stockList[i]}>${stockList[i]}</button>`)
   }
 
 }
@@ -26,7 +26,7 @@ const addButton = function(event) {
   // Write code to grab the text the user types into the input field
   let newStock = $("#stock-input").val().trim()
   // Write code to add the new stock into the stocks array
-  stocks.push(newStock);
+  stockList.push(newStock);
   // Write code to delete the contents of the former input
   $("#stock-input").val("")
   // The renderButtons function is called, rendering the list of stock buttons
@@ -46,11 +46,26 @@ $.ajax({
   method:"GET" 
 }).then(function(response){
 
-  console.log(response);
+console.log(response);
+
+$(".content").empty();
+
+  $(".content").append(response.quote.companyName);
+  $(".content").append(response.quote.latestPrice);
+ for( let i = 0; i < response.news.length; i++){
+     let news = response.news[i];
+     $(".content").append(news.headline)
+ }
 
 })
+
+
 
 
 });
 // Calling the renderButtons function to display the initial list of stocks
 render();
+
+
+//3. When the user clicks on a button, the page should grab the company name, logo, price, and up to 
+//10 news articles related to the stock from the iexTrading API and place them on the page.
