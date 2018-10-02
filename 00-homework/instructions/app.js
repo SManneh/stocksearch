@@ -1,6 +1,6 @@
 // Initial array of stocks
 const stockList = ['FB', "AAPL", 'TSLA', 'GOOG', 'AMZN'];
-
+let validationList = []
 // Function for displaying stock data
 const render = function () {
 
@@ -38,9 +38,16 @@ $("#stocks-view").on('click', ".get-stock", function(event){
   
   event.preventDefault();
   const stock = $(this).val();
+  
   const queryURL = `https://api.iextrading.com/1.0/stock/${stock}/batch?types=quote,news&range=1m&last=10`;
+  
+  const logoURL = `https://api.iextrading.com/1.0/stock/${stock}/logo`;
+
+ 
+
 console.log(stock);
 console.log(queryURL);
+
 $.ajax({
   url:queryURL,
   method:"GET" 
@@ -48,24 +55,35 @@ $.ajax({
 
 console.log(response);
 
-$(".content").empty();
+const companyName = response.quote.companyName;
+const stockSymbol = response.quote.stockSymbol;
+const price = response.quote.latestPrice;
+const newsHeadline = response.news[0].headline;
 
-  $(".content").append(response.quote.companyName);
-  $(".content").append(response.quote.latestPrice);
- for( let i = 0; i < response.news.length; i++){
-     let news = response.news[i];
-     $(".content").append(news.headline)
- }
+$.ajax({
+    url:logoURL,
+    method:"GET"
+}).then(function(response){
+    const logo = response.url;
 
-})
+
+$('tbody').append(`<tr><td>${companyName}</td> + <td>${stockSymbol}</td> + <td>${price}</td> + 
+<td><img src=${logo}></td> + <td>${newsHeadline}</td></tr>`);
+});
+
 
 
 
 
 });
+
+let getListSecurities = function(){
+    let rawList = [];
+
+}
+
+});
+
 // Calling the renderButtons function to display the initial list of stocks
 render();
 
-
-//3. When the user clicks on a button, the page should grab the company name, logo, price, and up to 
-//10 news articles related to the stock from the iexTrading API and place them on the page.
