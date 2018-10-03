@@ -1,6 +1,6 @@
 // Initial array of stocks
 const stockList = ['FB', "AAPL", 'TSLA', 'GOOG', 'AMZN'];
-let validationList = []
+// let validationList = []
 // Function for displaying stock data
 const render = function () {
 
@@ -47,26 +47,26 @@ $("#stocks-view").on('click', ".get-stock", function(event){
 
 console.log(stock);
 console.log(queryURL);
-
+// ajax call function to get info from url ans pass it through response.
 $.ajax({
   url:queryURL,
   method:"GET" 
 }).then(function(response){
 
 console.log(response);
-
+// declaring variables which will be used in the append function
 const companyName = response.quote.companyName;
 const stockSymbol = response.quote.stockSymbol;
 const price = response.quote.latestPrice;
 const newsHeadline = response.news[0].headline;
-
+// ajax call for the logo b/c its a url
 $.ajax({
     url:logoURL,
     method:"GET"
 }).then(function(response){
     const logo = response.url;
 
-
+// function to display the variables in the html created table body
 $('tbody').append(`<tr><td>${companyName}</td> + <td>${stockSymbol}</td> + <td>${price}</td> + 
 <td><img src=${logo}></td> + <td>${newsHeadline}</td></tr>`);
 });
@@ -77,10 +77,10 @@ $('tbody').append(`<tr><td>${companyName}</td> + <td>${stockSymbol}</td> + <td>$
 
 });
 
-let getListSecurities = function(){
-    let rawList = [];
+// let getListSecurities = function(){
+    // let rawList = [];
 
-}
+// }
 
 });
 
